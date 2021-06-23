@@ -4,8 +4,10 @@
 <head>
     <title>Visualisation</title>
 	<div id="controls" style="padding:20px;">
-        <button style="width:100px;" onclick="javascript:createViz(-1);">Previous</button>
-        <button style="width:100px;" onclick="javascript:createViz(1);">Next</button>
+        <button style="width:100px;" onclick="javascript:body_viz(0);">Vision Globale des décès</button>
+        <button style="width:100px;" onclick="javascript:body_viz(1);">Représentations par années</button>
+		<button style="width:100px;" onclick="javascript:body_viz(2);">Analyse des Causes</button>
+		<button style="width:100px;" onclick="javascript:body_viz(3);">Profils des victimes</button>
     </div>
     <script type="text/javascript" src="https://public.tableau.com/javascripts/api/tableau-2.min.js"></script>
    <script type="text/javascript">
@@ -16,36 +18,28 @@
 "https://public.tableau.com/views/Death_Final_V3/3_Diffrencedexposition?:language=fr-FR&:display_count=n&:origin=viz_share_link",
 "https://public.tableau.com/views/Death_Final_V3/Tableaudebord4?:language=fr-FR&:display_count=n&:origin=viz_share_link"];
 
-        var viz,
-            vizLen = vizList.length,
-            vizCount = 0;
-
-        function createViz(vizPlusMinus) {
+        var viz;
+		
+		function body_viz(num_viz) {
             var vizDiv = document.getElementById("vizContainer"),
                 options = {
                     hideTabs: true
                 };
 
-            vizCount = vizCount + vizPlusMinus;
-
-            if (vizCount >= vizLen) {
-                vizCount = 0;
-            } else if (vizCount < 0) {
-                vizCount = vizLen - 1;
-            }
 
             if (viz) {
                 viz.dispose();
             }
 
-            var vizURL = vizList[vizCount];
+            var vizURL = vizList[num_viz];
             viz = new tableau.Viz(vizDiv, vizURL, options);
         }
+		
     </script>
 </head>
 
-<body onload="createViz(0);">
-    <div id="vizContainer" style="width:800px; height:700px;"></div>
+<body onload="body_viz(0);">
+    <div id="vizContainer" style="width:600px; height:600px;"></div>
 	
     
 </body>
