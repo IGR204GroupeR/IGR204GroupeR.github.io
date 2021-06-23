@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Visualisation</title>
+	<div id="controls" style="padding:20px;">
+        <button style="width:100px;" onclick="javascript:createViz(-1);">Previous</button>
+        <button style="width:100px;" onclick="javascript:createViz(1);">Next</button>
+    </div>
+    <script type="text/javascript" src="https://public.tableau.com/javascripts/api/tableau-2.min.js"></script>
+   <script type="text/javascript">
+	
+	
+   var vizList = [ "https://public.tableau.com/views/Death_Final_V3/1_ComprhensionGlobale?:language=fr-FR&:display_count=n&:origin=viz_share_link",
+"https://public.tableau.com/views/Death_Final_V3/2_Sensibilisationauxaccidentsdelaroute?:language=fr-FR&:display_count=n&:origin=viz_share_link",
+"https://public.tableau.com/views/Death_Final_V3/3_Diffrencedexposition?:language=fr-FR&:display_count=n&:origin=viz_share_link",
+"https://public.tableau.com/views/Death_Final_V3/Tableaudebord4?:language=fr-FR&:display_count=n&:origin=viz_share_link"];
+
+        var viz,
+            vizLen = vizList.length,
+            vizCount = 0;
+
+        function createViz(vizPlusMinus) {
+            var vizDiv = document.getElementById("vizContainer"),
+                options = {
+                    hideTabs: true
+                };
+
+            vizCount = vizCount + vizPlusMinus;
+
+            if (vizCount >= vizLen) {
+                vizCount = 0;
+            } else if (vizCount < 0) {
+                vizCount = vizLen - 1;
+            }
+
+            if (viz) {
+                viz.dispose();
+            }
+
+            var vizURL = vizList[vizCount];
+            viz = new tableau.Viz(vizDiv, vizURL, options);
+        }
+    </script>
+</head>
+
+<body onload="createViz(0);">
+    <div id="vizContainer" style="width:800px; height:700px;"></div>
+	
+    
+</body>
+
+</html>
